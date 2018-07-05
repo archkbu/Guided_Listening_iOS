@@ -1,10 +1,5 @@
-//
-//  AppDelegate.m
-//  Template_ObjC
-//
-//  Created by Kwok Ho FUNG on 7/10/2015.
-//  Copyright © 2015 ULIP. All rights reserved.
-//
+//  Created by Dave Fung.
+//  Copyright (c) 2015 Hong Kong Baptist University. All rights reserved.
 
 #import "AppDelegate.h"
 
@@ -14,10 +9,35 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    //[GlobalValues setShowPasswordPageForFirstTimeUsing:YES];
+    //[GlobalValues setAppPassword:@"root"];
+    [GlobalValues setIsOnDemo:NO];
+    //[BookmarksHelper useBookmarks:nil];
+    
+    UIStoryboard *storyBoard;
+    NSString *rootViewName=@"UniversityVC";
+    storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *initViewController=[storyBoard instantiateViewControllerWithIdentifier:rootViewName];
+    UINavigationController *navController=[[UINavigationController alloc] initWithRootViewController:initViewController];
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+    [[UINavigationBar appearance] setTranslucent:NO];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:216.0/255.0 green:139.0/255.0 blue:132.0/255.0 alpha:1]];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:220.0/255.0 green:220.0/255.0 blue:220.0/255.0 alpha:1]];
+    [[UINavigationBar appearance] setTranslucent:NO];
+    [self setStatusBarBackgroundColor:[UIColor colorWithRed:216.0/255.0 green:139.0/255.0 blue:132.0/255.0 alpha:1]];
+    
+    [self.window setRootViewController:navController];
     return YES;
+}
+
+-(void)setStatusBarBackgroundColor:(UIColor *)color{
+    UIView *statusBar=[[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+    if([statusBar respondsToSelector:@selector(setBackgroundColor:)])statusBar.backgroundColor=color;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
